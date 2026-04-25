@@ -50,6 +50,8 @@ h1,h2,h3 { font-family: 'Bebas Neue', cursive !important; letter-spacing: 0.05em
 .hero-desc { font-family:'Source Serif 4',serif; font-size:0.92rem; color:rgba(230,237,243,0.7); max-width:600px; line-height:1.6; }
 .hero-pills { display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem; }
 .hero-pill { font-family:'JetBrains Mono',monospace; font-size:0.65rem; padding:3px 10px; border-radius:20px; border:1px solid rgba(201,168,76,0.35); color:rgba(201,168,76,0.8); background:rgba(201,168,76,0.05); letter-spacing:0.07em; text-transform:uppercase; }
+.hero-docs-link { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--gold); text-decoration:underline; letter-spacing:0.05em; }
+.hero-docs-link:hover { color:#e8c96a; }
 
 .sec-label { font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:0.75rem; padding-bottom:0.45rem; border-bottom:1px solid var(--border); }
 
@@ -171,11 +173,17 @@ st.markdown(f"""
 
 
 # ── Hero ─────────────────────────────────────────────────────────
-st.markdown("""
+DOCS_URL = "https://github.com/hrishiNEU/pitchVerdict/blob/main/docs/Hrishikesh%20Kulkarni%20002340007%20Pitch_Verdict_Technical_Report.pdf"
+
+st.markdown(f"""
 <div class="hero">
     <div class="hero-title">PITCH VERDICT</div>
     <div class="hero-sub">AI-Verified Tactical Match Reports</div>
-    <div class="hero-desc">Every AI can write a match report. Only Pitch Verdict checks if it's true — extracting every number, cross-referencing it against StatsBomb source data, and flagging mismatches before you see a word.</div>
+    <div class="hero-desc">
+        Every AI can write a match report. Only Pitch Verdict checks if it's true — extracting every number,
+        cross-referencing it against StatsBomb source data, and flagging mismatches before you see a word.
+        <a href="{DOCS_URL}" target="_blank" class="hero-docs-link">Click here for technical documentation →</a>
+    </div>
     <div class="hero-pills">
         <span class="hero-pill">StatsBomb Open Data</span>
         <span class="hero-pill">PPDA · xG · Possession</span>
@@ -293,7 +301,6 @@ if 'result' not in st.session_state and run_clicked:
 
         with pipe_ph.container(): render_pipeline(0, agent_labels)
         prog.progress(10, text="Agent 1: Loading match data…")
-        # Load from custom file or sample
         is_custom = st.session_state.get('selected_match') == '__custom__'
         if is_custom and st.session_state.get('custom_file_data'):
             import tempfile, os
